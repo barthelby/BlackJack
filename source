@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int tirageBanque()
+{
+    int nbAlea=0;
+    while (nbAlea <= 16)
+    {
+        srand(time(NULL));
+        nbAlea = rand() % 21;
+
+    }
+    printf("la banque a: %d\n", nbAlea);
+    return nbAlea;
+
+}
+
+int main ()
+{
+    int scoreJoueur =0;
+    int scoreBanque =0;
+    int pot = 100;
+    int mise = 0;
+
+    int nbAlea=0;
+    char reponse=' ';
+    int score = 0;
+    int valeurAs =0;
+
+    while (pot>0)
+    {
+
+
+        printf("Vous avez %d dans le pot\n", pot);
+
+        /* mise*/
+        printf("combien voulez vous miser ?\n");
+        scanf("%d", &mise);
+
+        /* tirage joueur*/
+        while (reponse !='n')
+    {
+        srand(time(NULL));
+        nbAlea= rand()%11;
+
+        if (nbAlea == 0)
+        {
+            while (nbAlea ==0)
+            {
+                srand(time(NULL)); /* tirage carte*/
+                nbAlea = rand() % 11;
+            }
+
+        }
+        printf("Vous avez tiré un %d\n", nbAlea);
+
+        if (nbAlea == 1) /*tirage dun as */
+        {
+            printf("vous avez tire un As, voulez vous lui donner la valeur 1 ou 11 ?\n");
+            scanf("%d", &valeurAs);
+            if ((valeurAs != 1) && (valeurAs != 11))
+            {
+                while ((valeurAs != 1) && (valeurAs != 11))
+                {
+
+
+                    printf("on a dit entre 1 et 11 !!! recommencez !\n");
+                    scanf("%d", &valeurAs);
+                    nbAlea = valeurAs;
+                }
+            }
+
+        }
+        /* calcul du score et demande de tirage ou pas */
+
+        scoreJoueur = (scoreJoueur + nbAlea);
+        printf("Vous avez un total de: %d\n\n", scoreJoueur);
+        printf("Voulez vous tirer une autre carte ? (o/n)\n");
+        scanf("%s", &reponse);
+
+    }
+
+        /*tirage banque*/
+        scoreBanque=tirageBanque();
+
+        if ((scoreJoueur == 21) && (scoreJoueur > scoreBanque))
+        {
+            printf("BLACKJACK !!! Vous remportez deux fois votre mise !!!\n");
+            pot = (pot+(mise*2));
+
+        }
+        else if (scoreJoueur > scoreBanque)
+        {
+            printf("Bravo !!! Vous remportez une fois votre mise !\n");
+            pot = (pot+mise);
+        }
+        else if (scoreJoueur < scoreBanque)
+        {
+            printf("La banque remporte la main, vous perdez votre mise\n");
+            pot = (pot-mise);
+        }
+        else
+            printf("Egalite ! vous recuperez votre mise\n");
+    }
+
+    printf("Vous etes ruine !!!\nGAME OVER !!!\n");
+
+    return 0;
+}
