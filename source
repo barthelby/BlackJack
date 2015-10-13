@@ -12,7 +12,7 @@ int tirageBanque()
         nbAlea = rand() % 21;
 
     }
-    printf("la banque a: %d\n\n", nbAlea);
+    printf("\nla banque a: %d\n\n", nbAlea);
 
     return nbAlea;
 
@@ -25,7 +25,7 @@ int tirageJoueur()
     char reponse=' ';
     int score = 0;
     int valeurAs =0;
-    int inter = 0;
+    //int inter = 0;
     srand(time(NULL));
 
 
@@ -65,8 +65,8 @@ int tirageJoueur()
         }
         /* calcul du score et demande de tirage ou pas */
 
-        inter = score + nbAlea;
-        score = inter;
+        score+=nbAlea;
+        //score = inter;
         printf("\nVous avez un total de: %d\n\n", score);
 
         if (score > 21)
@@ -120,29 +120,29 @@ int main ()
 
 
         /*tirage banque*/
-        if (scoreJoueur<=21)
+        if (scoreJoueur<21)
             scoreBanque=tirageBanque();
 
         if ((scoreJoueur == 21) && (scoreJoueur > scoreBanque))
         {
-            printf("BLACKJACK !!! Vous remportez deux fois votre mise !!!\n");
+            printf("\nBLACKJACK !!! Vous remportez deux fois votre mise !!!\n");
             pot = (pot+(mise*2));
 
         }
         else if ((scoreJoueur < scoreBanque) || (scoreJoueur > 21))
         {
-            printf("La banque remporte la main, vous perdez votre mise\n");
+            printf("\nLa banque remporte la main, vous perdez votre mise\n");
             pot = (pot-mise);
         }
 
         else if (scoreJoueur > scoreBanque)
         {
-            printf("Bravo !!! Vous remportez une fois votre mise !\n");
+            printf("\nBravo !!! Vous remportez une fois votre mise !\n");
             pot = (pot+mise);
         }
 
         else
-            printf("Egalite ! vous recuperez votre mise\n");
+            printf("\nEgalite ! vous recuperez votre mise\n");
     }
 
     printf("\nVous etes ruine !!!\n\nGAME OVER !!!\n\n");
