@@ -5,9 +5,10 @@
 int tirageBanque()
 {
     int nbAlea=0;
+    srand(time(NULL));
     while (nbAlea <= 16)
     {
-        srand(time(NULL));
+
         nbAlea = rand() % 21;
 
     }
@@ -24,24 +25,25 @@ int tirageJoueur()
     char reponse=' ';
     int score = 0;
     int valeurAs =0;
-    int inter=0;
+    int inter = 0;
+    srand(time(NULL));
 
 
     while ((reponse !='n') && (score < 22))
     {
-        srand(time(NULL));
+
         nbAlea= rand()%11;
 
         if (nbAlea == 0)
         {
             while (nbAlea ==0)
             {
-                srand(time(NULL)); /* tirage carte*/
+                /* tirage carte*/
                 nbAlea = rand() % 11;
             }
 
         }
-        printf("Vous avez tire un %d\n\n", nbAlea);
+        printf("\n\nVous avez tire un %d\n\n", nbAlea);
 
         if (nbAlea == 1) /*tirage dun as */
         {
@@ -63,9 +65,19 @@ int tirageJoueur()
         }
         /* calcul du score et demande de tirage ou pas */
 
-        inter = (score + nbAlea);
+        inter = score + nbAlea;
         score = inter;
-        printf("Vous avez un total de: %d\n\n", score);
+        printf("\nVous avez un total de: %d\n\n", score);
+
+        if (score > 21)
+        {
+            printf("\nBUSTED !!!\n");
+            break;
+        }
+
+        if (score == 21)
+            break;
+
         printf("Voulez vous tirer une autre carte ? (o/n)\n");
         scanf("%s", &reponse);
 
@@ -89,11 +101,17 @@ int main ()
     {
 
 
-        printf("Vous avez %d dans le pot\n", pot);
+        printf("\nVous avez %d dans le pot\n", pot);
 
         /* mise*/
-        printf("combien voulez vous miser ?\n");
+        printf("\ncombien voulez vous miser ?\n");
         scanf("%d", &mise);
+
+        while (mise>pot)
+        {
+            printf("\nVous ne pouvez pas miser plus que ce que vous avez dans votre pot !!! \n\nCombien voulez vous miser ?\n");
+            scanf("%d", &mise);
+        }
 
         /* tirage joueur*/
         scoreJoueur = tirageJoueur();
@@ -102,7 +120,8 @@ int main ()
 
 
         /*tirage banque*/
-        scoreBanque=tirageBanque();
+        if (scoreJoueur<=21)
+            scoreBanque=tirageBanque();
 
         if ((scoreJoueur == 21) && (scoreJoueur > scoreBanque))
         {
@@ -126,7 +145,7 @@ int main ()
             printf("Egalite ! vous recuperez votre mise\n");
     }
 
-    printf("Vous etes ruine !!!\n\nGAME OVER !!!\n\n");
+    printf("\nVous etes ruine !!!\n\nGAME OVER !!!\n\n");
 
     return 0;
 }
