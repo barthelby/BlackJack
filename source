@@ -12,7 +12,7 @@ int tirageBanque()
         nbAlea = rand() % 22;
     }
 
-    printf("\nla banque a: %d\n\n", nbAlea);
+    printf("\n\nla banque a: %d\n\n", nbAlea);
 
     return nbAlea;
 
@@ -25,58 +25,56 @@ int tirageJoueur()
     char reponse=' ';
     int score = 0;
     int valeurAs =0;
+    //int inter = 0;
     srand(time(NULL));
 
 
     while ((reponse !='n') && (score < 22))
     {
         nbAlea= (1+(rand()%10));
-    }
-    printf("\n\nVous avez tire un %d\n\n", nbAlea);
 
-    if (nbAlea == 1) /*tirage dun as */
-    {
-        printf("vous avez tire un As, voulez vous lui donner la valeur 1 ou 11 ?\n");
-        scanf("%d", &valeurAs);
-        nbAlea = valeurAs;
-        if ((valeurAs != 1) && (valeurAs != 11))
+        printf("\n\nVous avez tire un %d\n\n", nbAlea);
+
+        if (nbAlea == 1) /*tirage dun as */
         {
-            while ((valeurAs != 1) && (valeurAs != 11))
+            printf("vous avez tire un As, voulez vous lui donner la valeur 1 ou 11 ?\n");
+            scanf("%d", &valeurAs);
+            nbAlea = valeurAs;
+            if ((valeurAs != 1) && (valeurAs != 11))
             {
+                while ((valeurAs != 1) && (valeurAs != 11))
+                {
 
 
-                printf("on a dit la valeur 1 ou 11 !!! recommencez !\n");
-                scanf("%d", &valeurAs);
-                nbAlea = valeurAs;
+                    printf("on a dit la valeur 1 ou 11 !!! recommencez !\n");
+                    scanf("%d", &valeurAs);
+                    nbAlea = valeurAs;
+                }
             }
+
+        }
+        /* calcul du score et demande de tirage ou pas */
+
+        //inter = score+nbAlea;
+        //score = inter;
+        score += nbAlea;
+        printf("\nVous avez un total de: %d\n\n", score);
+
+        if (score > 21)
+        {
+            printf("\nBUSTED !!!\n");
+            break;
         }
 
-    }
-    /* calcul du score et demande de tirage ou pas */
-
-    score += nbAlea;
-
-    printf("\nVous avez un total de: %d\n\n", score);
-
-    if (score < 21)
-    {
+        else if (score == 21)
+        {
+            break;
+        }
         printf("Voulez vous tirer une autre carte ? (o/n)\n");
         scanf("%s", &reponse);
-    }
-    else if (score > 21)
-    {
-        printf("\nBUSTED !!!\n");
-    }
 
-    else if (score == 21)
-    {
-        break;
     }
-    printf("Voulez vous tirer une autre carte ? (o/n)\n");
-    scanf("%s", &reponse);
-
-}
-return score;
+    return score;
 
 }
 
