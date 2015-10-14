@@ -25,6 +25,7 @@ int tirageJoueur()
     char reponse=' ';
     int score = 0;
     int valeurAs =0;
+    /* variable inter pour un calcul fonctionnel de score*/
     //int inter = 0;
     srand(time(NULL));
 
@@ -55,9 +56,13 @@ int tirageJoueur()
         }
         /* calcul du score et demande de tirage ou pas */
 
+        /* obligé de passer par inter pour calculer score sinon ca me sort un resultat comme si j'avais ecrit score = nbAlea */
         //inter = score+nbAlea;
         //score = inter;
+
+        /*calcul du score qui merde et je pige pas pourquoi... */
         score += nbAlea;
+
         printf("\nVous avez un total de: %d\n\n", score);
 
         if (score > 21)
